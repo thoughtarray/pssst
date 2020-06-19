@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Send someone a sensitive message that will be viewable exactly once..." />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "PssstLive", suffix: " · Phoenix Framework" %>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <%# <body class="px-3 pt-5 lg:pt-24 bg-black text-gray-200"> %>
+  <body class="bg-black text-gray-200">
+    <%# <header class="mb-3"> %>
+    <%# <header class="mb-2">
+      <h1 class="text-center text-2xl font-display font-bold uppercase tracking-widest">Pssst...</h1>
+    </header> %>
+    <main role="main" class="mb-3 bg-gray-800 bg-opacity-50">
+      <%= @inner_content %>
+    </main>
+    <footer>
+      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+      <div class="text-center"><%= link "[Debug]", to: Routes.live_dashboard_path(@conn, :home) %></div>
+      <% end %>
+    </footer>
+  </body>
+</html>

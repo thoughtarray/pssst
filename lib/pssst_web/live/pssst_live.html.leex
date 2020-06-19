@@ -1,0 +1,67 @@
+<%# <div class="mb-6 mx-auto overflow-hidden h-screen-60 sm:max-w-xl sm:h-64 lg:max-w-3xl lg:h-96 bg-gray-800 bg-opacity-50 rounded-lg"> %>
+<%# <div class="mb-3 bg-gray-800 bg-opacity-50"> %>
+  <%# <div class="grid grid-rows-3 sm:grid-rows-none sm:grid-cols-3 h-full"> %>
+  <%# <div class="grid grid-rows-4 h-full"> %>
+  <%# <div class=""> %>
+
+
+    <%# Home view %>
+    <%# <%= if @selected_secret do %>
+<%= if @selected_secret do %>
+  <%= live_component @socket, ManageSecretComponent, secret: @selected_secret, action: @selected_secret_action %>
+<% else %>
+      <%# <div class="p-6 opacity-100 overflow-y-scroll bg-cover bg-center rounded-l-lg" style="background-image: url('./farts.jpg'); background-color: blueviolet; background: linear-gradient(to top left, rgb(69, 20, 114), blueviolet);"> %>
+      <%# <div class="p-4 opacity-100 overflow-x-scroll rounded-t-lg" style="background-color: blueviolet; background: linear-gradient(to top left, rgb(69, 20, 114), blueviolet);"> %>
+  <div class="px-2 py-3" style="background-color: blueviolet; background: linear-gradient(to top left, rgb(69, 20, 114), blueviolet);">
+    <%= if length(@secrets) == 0 do %>
+      <div class="text-center flex flex-col justify-center">
+        <h1 class="text-center text-2xl font-display font-bold uppercase tracking-widest">Pssst...</h1>
+        <p>Send someone a sensitive message that will be viewable exactly once...</p>
+      </div>
+    <% else %>
+      <%# <div class="pl-3 py-4 h-full overflow-x-auto"> %>
+      <div class="overflow-x-auto grid grid-rows-1 grid-flow-col">
+        <%= for s <- @secrets do %>
+          <button phx-click="select-secret" phx-value-mgmt-id="<%= s.mgmt_id %>" class="mr-3 px-2 py-1 w-32 bg-black bg-opacity-25 border rounded text-center truncate hover:border-blue-500 hover:text-blue-500 focus:border-blue-500 focus:text-blue-500">
+          <%# <button class="w-32 border"> %>
+            <%= if s.title == "", do: "(untitled)", else: s.title %>
+            <br>
+            Expires in <%= s.expiration |> NaiveDateTime.diff(NaiveDateTime.utc_now()) |> duration_to_short_humanized %>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%# <form phx-submit="create-secret" class="p-4 lg:p-8 lg:pt-4 row-span-2 sm:row-auto sm:col-span-2 border border-l-0 border-gray-700 rounded-r-lg flex flex-col"> %>
+  <form phx-submit="create-secret" class="px-3 pt-3 pb-4">
+    <div class="mb-3">
+      <label for="s-content" class="mb-2 block uppercase tracking-wide text-gray-400 text-sm font-bold">Secret</label>
+      <textarea name="s-content" class="px-3 py-2 resize-none block w-full h-32 bg-black bg-opacity-0 border-2 border-dashed rounded" placeholder="Contents of your message" maxlength="1000"></textarea>
+    </div>
+    <div class="mb-3 flex">
+      <div class="mr-2 w-1/2">
+        <label for="s-title" class="mb-2 block uppercase tracking-wide text-gray-400 text-sm font-bold">Title</label>
+        <input name="s-title" class="px-3 py-2 w-full bg-black bg-opacity-0 border rounded appearance-none leading-tight" type="text" placeholder="For your recolection" maxlength="36">
+      </div>
+      <div class="ml-1 w-1/2">
+        <label for="s-expiration" class="mb-2 block uppercase tracking-wide text-gray-400 text-sm font-bold">Expires after</label>
+        <div class="relative">
+          <select name="s-expiration" class="pl-3 pr-6 py-2 block w-full bg-black bg-opacity-0 border rounded appearance-none leading-tight">
+            <option class="bg-gray-900" value="5">5 minutes</option>
+            <option class="bg-gray-900" value="15">15 minutes</option>
+            <option class="bg-gray-900" value="30">30 minutes</option>
+            <option class="bg-gray-900" value="60">1 hour</option>
+            <option class="bg-gray-900" value="180">3 hours</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+            <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="px-3 py-2 w-full bg-gray-800 border rounded font-semibold hover:border-blue-500 hover:text-blue-500 focus:border-blue-500 focus:text-blue-500">Create a secret</button>
+  </form>
+<% end %>
+  <%# </div> %>
+<%# </div> %>

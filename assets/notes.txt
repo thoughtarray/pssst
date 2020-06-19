@@ -1,0 +1,2 @@
+https://pragmaticstudio.com/tutorials/adding-tailwind-css-to-phoenix
+PATH=`pwd`/../../bin:$PATH NODE_ENV=production node node_modules/webpack/bin/webpack.js --mode production

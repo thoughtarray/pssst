@@ -1,0 +1,11 @@
+<p class="alert alert-info" role="alert"
+  phx-click="lv:clear-flash"
+  phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+
+<%= if live_flash(@flash, :error) do %>
+<p class="mx-auto mb-4 px-3 py-2 sm:max-w-xl lg:max-w-3xl bg-red-600 bg-opacity-50 rounded-lg shadow-lg" role="alert"
+  phx-click="lv:clear-flash"
+  phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+<% end %>
+
+<%= @inner_content %>
