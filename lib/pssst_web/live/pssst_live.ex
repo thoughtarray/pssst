@@ -1,6 +1,7 @@
 
 defmodule PssstWeb.PssstLive do
   use PssstWeb, :live_view
+  import Plug.Conn
   alias PssstWeb.ManageSecretComponent
 
   @max_secret_size 1000
